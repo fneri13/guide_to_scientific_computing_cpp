@@ -38,8 +38,6 @@ int main(int argc, char* argv[]) {
   } 
   cout<<"With the second variant, the result is "<<y_new<<endl;
   cout<<"obtained with "<<count<<" iterations"<<endl;
-
-
-
+  
   return 0; 
 }
