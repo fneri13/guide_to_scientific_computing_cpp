@@ -24,6 +24,21 @@ int main(int argc, char* argv[]) {
       cout<<x[i]<<endl;
   }
 
+  //variation using threshold criterion
+  double y_old = 11.0;
+  double y_new;
+  double eps = 0.0001;
+  double error = 1.0;
+  int count = 0;
+  while(error > eps){
+      y_new = y_old - ffunction(y_old)/dderivative(y_old);
+      error = abs((y_new - y_old)/y_old);
+      count = count + 1;
+      y_old = y_new;
+  } 
+  cout<<"With the second variant, the result is "<<y_new<<endl;
+  cout<<"obtained with "<<count<<" iterations"<<endl;
+
 
 
   return 0; 
