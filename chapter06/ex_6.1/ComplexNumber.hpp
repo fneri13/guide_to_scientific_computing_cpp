@@ -1,3 +1,4 @@
+//this command serves to define everything is inside if it's not been defined yet
 #ifndef COMPLEXNUMBERHEADERDEF
 #define COMPLEXNUMBERHEADERDEF
 
