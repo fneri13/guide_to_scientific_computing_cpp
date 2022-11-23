@@ -1,40 +1,50 @@
+//this file includes all the things inside the complex number class
 #include "ComplexNumber.hpp"
 #include <cmath>
 
+//default constructor
 ComplexNumber::ComplexNumber(){
     mRealPart = 0.0;
     mImagPart = 0.0;
 }
 
+//another constructor with inputs
 ComplexNumber::ComplexNumber(double x, double y){
     mRealPart = x;
     mImagPart = y;
 }
 
+//calculate modules member function
 double ComplexNumber::CalculateModulus() const {
     return sqrt(mRealPart*mRealPart + mImagPart*mImagPart);
 }
 
+//calculate the argument
 double ComplexNumber::CalculateArgument() const {
     return atan2(mImagPart, mRealPart);
 }
 
+//return the real part as a double data type
 double ComplexNumber::GetRealPart() const {
     return mRealPart;
 }
 
+//friend functin who returns the real part of a complex number
 double RealPart(const ComplexNumber z) {
     return z.GetRealPart();
 }
 
+//get imaginary part
 double ComplexNumber::GetImagPart() const {
     return mImagPart;
 }
 
+//friend function to return the imaginary part of a complex number
 double ImagPart(const ComplexNumber z) {
     return z.GetImagPart();
 }
 
+//calculate the power n of a complex number. const means that the initial object can't be changed from the function
 ComplexNumber ComplexNumber::CalculatePower(double n) const {
     double modulus = CalculateModulus();
     double argument = CalculateArgument();
@@ -46,6 +56,7 @@ ComplexNumber ComplexNumber::CalculatePower(double n) const {
     return z;
 }
 
+//calculate the conjugate of a complex number
 ComplexNumber ComplexNumber::CalculateConjugate() const {
     ComplexNumber w;
     w.mRealPart = mRealPart;
@@ -54,6 +65,7 @@ ComplexNumber ComplexNumber::CalculateConjugate() const {
 }
 
 //overloading the binary operator = for complex numbers 
+//returns the copy by reference of a complex number, because it needs to modify it
 ComplexNumber& ComplexNumber::operator=(const ComplexNumber& z){
     mRealPart = z.mRealPart;
     mImagPart = z.mImagPart;
