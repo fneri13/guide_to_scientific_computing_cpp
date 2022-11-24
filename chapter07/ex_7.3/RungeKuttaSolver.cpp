@@ -2,6 +2,8 @@
 #include <cmath>
 #include <iostream>
 using namespace std;
+#include <string>
+#include <fstream>
 
 RungeKuttaSolver::RungeKuttaSolver(){
     stepSize = 0.0;
@@ -20,7 +22,7 @@ double RungeKuttaSolver::RightHandSide(double y, double t){
     return p_function(y,t);
 }
 
-void RungeKuttaSolver::SolveEquation(){
+void RungeKuttaSolver::SolveEquation(std::string output_name){
     int N = (finalTime - initialTime)/stepSize +1;
 
     double* p_t = new double [N];
@@ -29,7 +31,11 @@ void RungeKuttaSolver::SolveEquation(){
     p_t[0] = initialTime;
     p_y[0] = initialValue;
     double k1,k2,k3,k4;
-    cout<<p_t[0]<<"\t"<<p_y[0]<<endl; 
+
+    //write the solution to a file_output
+    std::ofstream write_output(output_name);
+    write_output<<p_t[0]<<"\t"<<p_y[0]<<std::endl; 
+    write_output.setf(std::ios::showpos);    write_output.precision(6);
     for (int i=1; i<N; i++){
         p_t[i] = p_t[i-1]+stepSize;
 
@@ -42,6 +48,6 @@ void RungeKuttaSolver::SolveEquation(){
         p_y[i] = p_y[i-1]+(1.0/6.0)*(k1+2.0*k2+2.0*k3+k4);
 
         //output file
-        cout<<p_t[i]<<"\t"<<p_y[i]<<endl; 
+        write_output<<p_t[i]<<"\t"<<p_y[i]<<std::endl; 
     }
 }

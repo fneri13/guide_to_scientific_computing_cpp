@@ -8,7 +8,7 @@ int main(){
     test.SetInitialValue(2.0);
     test.SetStepSize(0.05);
     test.SetTimeInterval(0.0,1.0);
-    test.SolveEquation();
+    test.SolveEquation("rk4.txt");
     
     return 0;
 }

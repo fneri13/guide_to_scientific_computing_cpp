@@ -9,12 +9,12 @@ Created on Mon Oct 10 17:23:00 2022
 import numpy as np
 from matplotlib import pyplot as plt
 
-File_data = np.loadtxt("log_eul.txt", dtype=float)
+File_data = np.loadtxt("eul.txt", dtype=float)
 # print(File_data)
 t_eul = File_data[:,0]
 y_eul = File_data[:,1]
 
-File_data_2 = np.loadtxt("log_rk.txt", dtype=float)
+File_data_2 = np.loadtxt("rk4.txt", dtype=float)
 t_rk = File_data_2[:,0]
 y_rk = File_data_2[:,1]
 

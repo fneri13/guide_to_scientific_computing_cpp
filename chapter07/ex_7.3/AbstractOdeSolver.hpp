@@ -1,6 +1,8 @@
 /* Definition of an abstract class, that will provide the basis for an ODE solver */
 #ifndef ABSTRACTODESOLVER
 #define ABSTRACTODESOLVER
+#include <string>
+
 
 class AbstractOdeSolver{
     public:
@@ -17,6 +19,6 @@ class AbstractOdeSolver{
         class, but will be useful only to be inherited from child classes, that will override them thanks to 
         polymorphism. Every child class will specify its on methods*/
         virtual double RightHandSide(double y, double t) = 0; 
-        virtual void SolveEquation() = 0;
+        virtual void SolveEquation(std::string output_file_name) = 0;
 };
 #endif
