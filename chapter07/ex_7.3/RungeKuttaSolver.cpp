@@ -45,7 +45,7 @@ void RungeKuttaSolver::SolveEquation(std::string output_name){
         k3 = stepSize*RightHandSide(p_t[i-1]+0.5*stepSize,p_y[i-1]+0.5*k2);
         k4 = stepSize*RightHandSide(p_t[i-1]+stepSize,p_y[i-1]+k3);
 
-        p_y[i] = p_y[i-1]+(1.0/6.0)*(k1+2.0*k2+2.0*k3+k4);
+        p_y[i] = p_y[i-1]+(1.0/6.0)*(k1 + 2.0*k2 + 2.0*k3 + k4);
 
         //output file
         write_output<<p_t[i]<<"\t"<<p_y[i]<<std::endl; 

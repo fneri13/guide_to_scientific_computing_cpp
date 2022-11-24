@@ -6,7 +6,7 @@
 int main(){
     RungeKuttaSolver test;
     test.SetInitialValue(2.0);
-    test.SetStepSize(0.05);
+    test.SetStepSize(0.1);
     test.SetTimeInterval(0.0,1.0);
     test.SolveEquation("rk4.txt");
     
