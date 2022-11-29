@@ -5,7 +5,7 @@
 //Program to sum Pi using Leibniz formula:
 // Pi = 4 * Sum_n ( (-1)**n/(2*n+1) )
 int main(int argc, char* argv[]){
-    int max_n = 1000;
+    int max_n = 1000; //truncation number of the series. Ideally is a multiple of number of processes
     double sum = 0;
     MPI::Init(argc, argv); //initialize a parallel execution on argc processes
     int num_procs = MPI::COMM_WORLD.Get_size(); //how many processes
