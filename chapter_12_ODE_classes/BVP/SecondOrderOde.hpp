@@ -39,6 +39,8 @@ class SecondOrderOde{
         }
         
         void printInfoProblem(){
+            cout << endl;
+            cout << "SECOND ORDER DIFFERENTIAL EQUATION"<<endl;
             cout <<"The differential equation is: "<<mCoeffOfUxx<<"Uxx + "<<mCoeffOfUx<<"Ux + "<<mCoeffOfU<<"U = f(x)" <<endl;
             cout <<"The domain is  ["<<mXmin<<","<<mXmax<<"]"<<endl;
         }

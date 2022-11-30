@@ -18,10 +18,44 @@ class BoundaryConditions{
         double mLhsBcValue;
         double mRhsBcValue;
     public:
-        BoundaryConditions();
-        void SetLhsDirichletBc(double lhsValue);
-        void SetRhsDirichletBc(double rhsValue);
-        void SetLhsNeumannBc(double lhsDerivValue);
-        void SetRhsNeumannBc(double rhsDerivValue);
+    //default boundary conditions
+        BoundaryConditions(){
+            mLhsBcIsDirichlet = false;
+            mRhsBcIsDirichlet = false;
+            mLhsBcIsNeumann = false;
+            mRhsBcIsNeumann = false;
+            mLhsBcValue = 0.0;
+            mRhsBcValue = 0.0;
+        }
+        void SetLhsDirichletBc(double lhsValue){
+            assert (mLhsBcIsNeumann == false);
+            mLhsBcIsDirichlet = true;
+            mLhsBcValue = lhsValue;
+        }
+        void SetRhsDirichletBc(double rhsValue){
+            assert (mRhsBcIsNeumann == false);
+            mRhsBcIsDirichlet = true;
+            mRhsBcValue = rhsValue;
+        }
+        void SetLhsNeumannBc(double lhsDerivValue){
+            assert (mLhsBcIsDirichlet == false);
+            mLhsBcIsNeumann = true;
+            mLhsBcValue = lhsDerivValue;
+        }
+        void SetRhsNeumannBc(double rhsDerivValue){
+            assert (mRhsBcIsDirichlet == false);
+            mRhsBcIsNeumann = true;
+            mRhsBcValue = rhsDerivValue;
+        }
+        void printBoundaryConditions(){
+            cout << endl;
+            cout << "BOUNDARY CONDITIONS" << endl;
+            cout << "Left Dirichlet = " << mLhsBcIsDirichlet << endl;
+            cout << "Left Neumann = " << mLhsBcIsNeumann << endl;
+            cout << "Right Dirichlet = " << mRhsBcIsDirichlet << endl;
+            cout << "Right Neumann = " << mRhsBcIsNeumann << endl;
+            cout << "left value = " << mLhsBcValue << endl;
+            cout << "Right value = " << mRhsBcValue << endl;
+        }
 };
 #endif  
