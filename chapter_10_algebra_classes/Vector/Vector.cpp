@@ -5,26 +5,28 @@ using namespace std;
 #include <cassert>
 
 //constructor of a vector, copying info from the other one. notice that the
-//the default constructor would not work properly
+//the default constructor would not work properly, because it wouldn't how much memory
+//it needs to allocate dynamically with the new stament. We therefore avoid default 
+//constructors that take no argument
 Vector::Vector(const Vector& otherVector){
     mSize = otherVector.GetSize();
     mData = new double [mSize]; //allocate new memory
     for(int i=0; i<mSize; i++){
-        mData[i] = otherVector.mData[i];
+        mData[i] = otherVector.mData[i]; //attributes can access private members
     }
 }
 
-//constructor for a vector of a given size, initialized at zero. default constructor
+//constructor for a vector of a given size, elements initialized at zero. default constructor
 //is therefore overridden now, to prevent memory leakage
 Vector::Vector(int size){
     mSize = size;
-    mData = new double [mSize];
+    mData = new double [mSize]; //new memory allocated
     for(int i=0; i<mSize; i++){
-        mData[i] = 0.0;
+        mData[i] = 0.0; //elements initialized to zero
     }
 }
 
-//destructor to free memory that had been allocated before. 
+//destructor to free memory that had been allocated before. Otherwise memory leak
 Vector::~Vector(){
     delete[] mData;
 }
@@ -36,9 +38,9 @@ int Vector::GetSize() const{
 
 //overloading of the square bracket operator
 //returning by reference gives the possibility to modify it!
-//it gives the possibility to be put at the left of the assignment
+//it gives the possibility to be put at the left of the = assignment
 double& Vector::operator[](int i){
-    assert(i>-1 && i<mSize);
+    assert(i>-1 && i<mSize); //check that index is in the exact range
     return mData[i];
 }
 
@@ -49,7 +51,7 @@ double Vector::Read(int i) const{
     return mData[i];
 }
 
-//overloading of the round brackets in matlab style
+//overloading of the round brackets in matlab style. 1 based indexing (useless usually)
 double& Vector::operator()(int i){
     assert(i>0 && i<mSize+1);
     return mData[i-1];
@@ -57,11 +59,11 @@ double& Vector::operator()(int i){
 
 //overloading of the assignment operator
 Vector& Vector::operator=(const Vector& otherVector){
-    assert(mSize==otherVector.mSize);
+    assert(mSize==otherVector.mSize); //check of the correct size of two vectors
     for(int i=0; i<mSize; i++){
         mData[i] = otherVector.mData[i];
     }
-    return *this;
+    return *this; //return the vector itself (it modifies the vector elements at the left side of =)
 }
 
 Vector Vector::operator+() const{
@@ -69,7 +71,7 @@ Vector Vector::operator+() const{
     for(int i=0; i<mSize; i++){
         v[i] = mData[i];
     }
-    return v;
+    return v; //return the same vector
 }
 
 Vector Vector::operator-() const{
@@ -77,7 +79,7 @@ Vector Vector::operator-() const{
     for(int i=0; i<mSize; i++){
         v[i] = -mData[i];
     }
-    return v;
+    return v; //return the opposite vector
 }
 
 Vector Vector::operator+(const Vector& v1) const{
@@ -106,6 +108,7 @@ Vector Vector::operator*(double a) const{
     return v;
 }
 
+//calculate the p-norm of a vector. The default value is p=2, which is the euclidean norm
 double Vector::CalculateNorm(int p) const{
     double norm_val, sum = 0.0;
     for (int i=0; i<mSize; i++){
@@ -118,4 +121,12 @@ double Vector::CalculateNorm(int p) const{
 //matlab style friend function to get the size of a vector
 int length(const Vector& v){
     return v.mSize;
+}
+
+void Vector::PrintVector(){
+    for (int i=0; i<mSize; i++){
+        cout << "[";
+        cout << mData[i];
+        cout << "]" << endl;
+    }
 }
