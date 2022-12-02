@@ -48,6 +48,15 @@ Matrix::~Matrix(){
         delete[] mData;
 }
 
+double &Matrix::operator()(int i, int j)             // One-based indexing
+{
+    assert(i > 0);
+    assert(i < mNumRows + 1);
+    assert(j > 0);
+    assert(j < mNumCols + 1);
+    return mData[i-1][j-1];
+}
+
 void Matrix::printMatrix(){
     for (int i=0; i<mNumRows; i++){
         cout << "[";
@@ -122,19 +131,53 @@ Matrix Matrix::operator*(double a) const{
     return M; //return the matrix
 }
 
-//something related to memory is not working properly
-Vector Matrix::operator*(Vector vec) const{
-    assert(mNumCols == vec.GetSize());
-    Vector v(vec.GetSize());
-    double sum;
-    for (int i=0; i<mNumCols; i++){
-        sum = 0.0;
-        for (int j=0; j<mNumCols; j++){
-            sum = sum + mData[i][j]*vec[i];
+// Overloading matrix multiplied by a vector
+Vector operator*(const Matrix &m, const Vector &v)
+{
+    int original_vector_size = v.GetSize();
+    assert(m.getNumCols() == original_vector_size);
+    int new_vector_length = m.getNumRows();
+    Vector new_vector(new_vector_length);
+
+    for (int i = 0; i < new_vector_length; i++)
+    {
+        for (int j = 0; j < original_vector_size; j++)
+        {
+            new_vector[i] += m.mData[i][j] * v.Read(j);
         }
-        v[i] = sum;
     }
-    return v; //return the resulting vector
+    return new_vector;
 }
 
+double Matrix::GetDeterminant()
+{
+    assert(mNumRows == mNumCols);
+    double determinant = 0.0;
 
+    if (mNumRows == 1)
+    {
+        determinant = mData[0][0];
+    }
+    else
+    {
+        // More than one entry of matrix
+        for (int i_outer = 0; i_outer < mNumRows; i_outer++)
+        {
+            Matrix sub_matrix(mNumRows - 1, mNumRows - 1);
+            for (int i = 0; i < mNumRows - 1; i++)
+            {
+                for (int j = 0; j < i_outer; j++)
+                {
+                    sub_matrix(i + 1, j + 1) = mData[i + 1][j];
+                }
+                for (int j = i_outer; j < mNumRows - 1; j++)
+                {
+                    sub_matrix(i + 1, j + 1) = mData[i + 1][j + 1];
+                }
+            }
+            double sub_matrix_determinant = sub_matrix.GetDeterminant();
+            determinant += pow(-1.0, i_outer) * mData[0][i_outer] * sub_matrix_determinant;
+        }
+    }
+    return determinant;
+}

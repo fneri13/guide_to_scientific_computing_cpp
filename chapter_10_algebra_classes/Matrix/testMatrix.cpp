@@ -6,8 +6,10 @@ using namespace std;
 #include "../Vector/Vector.hpp"
 
 int main(int argc, char* argv[]){
+    cout << "/*++++++++++++++++++++++++++++++ Test Matrix Class +++++++++++++++++++++++++++++++++*/"<<endl;
     int rows = 3;
-    int cols = 4;
+    int cols = 3;
+    cout<<"Number of rows and colunms of matrix = ("<<rows<<","<<cols<<")"<<endl;
     Matrix A(rows,cols);
     Matrix C(rows, cols);
     C = A;
@@ -16,7 +18,7 @@ int main(int argc, char* argv[]){
     cout<<"A ="<<endl;
     for (int i=0; i<A.getNumRows(); i++){
         for (int j=0; j<A.getNumCols(); j++){
-            A.SetElementValue(i,j,i+j);
+            A.SetElementValue(i,j,(i+j)*2+1);
         }
     }
     A.printMatrix();
@@ -49,9 +51,17 @@ int main(int argc, char* argv[]){
     cout<<"Vector v = "<<endl;
     v.PrintVector();
 
-    Vector matvec(cols);
-    matvec = A * v;
+    v = A*v;
     cout<<"A*v = "<<endl;
-    matvec.PrintVector();
+    v.PrintVector(); 
+
+    //test determinant method
+    cout<<endl;
+    cout << "------------TEST OF DETERMINANT------------" << endl;
+    cout<<"A ="<<endl;
+    A.printMatrix();
+    cout << "determinant of A = " << A.GetDeterminant() << endl;
+    
+    
     return 0;
 }

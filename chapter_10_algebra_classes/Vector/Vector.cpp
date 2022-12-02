@@ -59,7 +59,7 @@ double& Vector::operator()(int i){
 
 //overloading of the assignment operator
 Vector& Vector::operator=(const Vector& otherVector){
-    assert(mSize==otherVector.mSize); //check of the correct size of two vectors
+    //assert(mSize==otherVector.mSize); //check of the correct size of two vectors
     for(int i=0; i<mSize; i++){
         mData[i] = otherVector.mData[i];
     }
